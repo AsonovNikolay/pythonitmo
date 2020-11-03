@@ -2,38 +2,58 @@ import typing as tp
 
 
 def encrypt_caesar(plaintext: str, shift: int = 3) -> str:
-    """
-    Encrypts plaintext using a Caesar cipher.
-
-    >>> encrypt_caesar("PYTHON")
-    'SBWKRQ'
-    >>> encrypt_caesar("python")
-    'sbwkrq'
-    >>> encrypt_caesar("Python3.6")
-    'Sbwkrq3.6'
-    >>> encrypt_caesar("")
-    ''
-    """
+    step = 0
+    main = []
     ciphertext = ""
-    # PUT YOUR CODE HERE
+    position = 0
+    for x in plaintext:
+        main.append(x)
+    mainlistup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    mainlistdown = 'abcdefghijklmnopqrstuvwxyz'
+    for x in range(len(main)):
+        if main[x] in mainlistup:
+            position = mainlistup.index(main[x])
+            if position + shift > 25:
+                position = position + shift - 26
+            else:
+                position += shift
+            main[x] = mainlistup[position]
+        elif main[x] in mainlistdown:
+            position = mainlistdown.index(main[x])
+            if position + shift > 25:
+                position = position + shift - 26
+            else:
+                position += shift
+            main[x] = mainlistdown[position]
+        ciphertext += main[x]
     return ciphertext
 
 
 def decrypt_caesar(ciphertext: str, shift: int = 3) -> str:
-    """
-    Decrypts a ciphertext using a Caesar cipher.
-
-    >>> decrypt_caesar("SBWKRQ")
-    'PYTHON'
-    >>> decrypt_caesar("sbwkrq")
-    'python'
-    >>> decrypt_caesar("Sbwkrq3.6")
-    'Python3.6'
-    >>> decrypt_caesar("")
-    ''
-    """
+    step = 0
+    main = []
     plaintext = ""
-    # PUT YOUR CODE HERE
+    position = 0
+    for x in ciphertext:
+        main.append(x)
+    mainlistup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    mainlistdown = 'abcdefghijklmnopqrstuvwxyz'
+    for x in range(len(main)):
+        if main[x] in mainlistup:
+            position = mainlistup.index(main[x])
+            if position - shift < 0:
+                position = position - shift + 26
+            else:
+                position -= shift
+            main[x] = mainlistup[position]
+        elif main[x] in mainlistdown:
+            position = mainlistdown.index(main[x])
+            if position - shift < 0:
+                position = position - shift + 26
+            else:
+                position -= shift
+            main[x] = mainlistdown[position]
+        plaintext += main[x]
     return plaintext
 
 
