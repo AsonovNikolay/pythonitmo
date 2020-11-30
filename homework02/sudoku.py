@@ -168,27 +168,38 @@ def check_solution(solution: List[List[str]]) -> bool:
 
 
 def generate_sudoku(N: int) -> List[List[str]]:
+    import random
     grid = []
-
-    for x in range(9):
-        grid.append([])
-        for y in range(9):
-            grid[x].append('.')
-    if N > 81:
-        N = 81
-    while N > 0:
-
-        pos = random.randint(0, 8)
-        pos2 = random.randint(0, 8)
-
-        while grid[pos][pos2] != '.':
-            pos = random.randint(0, 8)
-            pos2 = random.randint(0, 8)
-        possible = list(find_possible_values(grid, (pos, pos2)))
-
-        if len(possible) != 0:
-            grid[pos][pos2] = random.choice(possible)
-            N -= 1
+    f = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
+    s = ['4', '5', '6', '7', '8', '9', '1', '2', '3']
+    t = ['7', '8', '9', '1', '2', '3', '4', '5', '6']
+    fo = ['2', '3', '4', '5', '6', '7', '8', '9', '1']
+    fi = ['5', '6', '7', '8', '9', '1', '2', '3', '4']
+    si = ['8', '9', '1', '2', '3', '4', '5', '6', '7']
+    se = ['3', '4', '5', '6', '7', '8', '9', '1', '2']
+    e = ['6', '7', '8', '9', '1', '2', '3', '4', '5']
+    n = ['9', '1', '2', '3', '4', '5', '6', '7', '8']
+    grid = [f, s, t, fo, fi, si, se, e, n]
+    for x in range(1000):
+        n = random.randint(0, 2)
+        n2 = random.randint(0, 2)
+        while n == n2:
+            n2 = random.randint(0, 2)
+        pos1, pos2 = random.randint(n*3, n*3+2), random.randint(n*3, n*3+2)
+        while pos1 == pos2:
+            pos2 = random.randint(n*3, n*3+2)
+        grid[pos1], grid[pos2] = grid[pos2], grid[pos1]
+        for x in range(9):
+            grid[x][pos1], grid[x][pos2] = grid[x][pos2], grid[x][pos1]
+    for x in grid:
+        print(x)
+    N = 81 - N
+    if N > 0:
+        while N > 0:
+            pos1, pos2 = random.randint(0, 8), random.randint(0, 8)
+            if grid[pos1][pos2] != '.':
+                grid[pos1][pos2] = '.'
+                N -= 1
     return grid
 
 
