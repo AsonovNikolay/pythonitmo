@@ -91,10 +91,20 @@ class GameOfLife:
         """
         Прочитать состояние клеток из указанного файла.
         """
-        pass
+        grid = []
+        file = filename.open(mode="r")
+        for line in file.readlines():
+            line = line.replace("\n", "")
+            row = []
+            for char in line:
+                row.append(int(char))
+            grid.append(row)
 
     def save(self, filename: pathlib.Path) -> None:
         """
         Сохранить текущее состояние клеток в указанный файл.
         """
-        pass
+        file = filename.open(mode="w")
+        for row in self.curr_generation:
+            file.write("".join([str(char) for char in row]))
+            file.write("\n")
