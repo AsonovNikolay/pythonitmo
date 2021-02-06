@@ -34,6 +34,6 @@ class Console(UI):
         curses.endwin()
 
 if __name__ == "__main__":
-    game = GameOfLife(size=(5, 5))
+    game = GameOfLife(size=(5, 5), randomize=True)
     console = Console(game)
     console.run()

@@ -27,14 +27,15 @@ class GameOfLife:
         # Максимальное число поколений
         self.max_generations = max_generations
         # Текущее число поколений
-        self.generations = 1
+        self.n_generation = 1
 
-    def create_grid(self, randomize: bool = True, grid=[]):
-        for x in range(self.rows):
-            grid.append([])
-            for y in range(self.cols):
-                grid[x].append(randint(0, 1) if randomize else 0)
+    def create_grid(self, randomize=True, grid = []) -> Grid:
+        if randomize:
+            grid = [[random.randint(0, 1) for _ in range(self.cols)] for _ in range(self.rows)]
+        else:
+            grid = [[0 for _ in range(self.cols)] for _ in range(self.rows)]
         return grid
+
 
     def get_neighbours(self, cell: Cell) -> Cells:
         #координаты клетки
@@ -70,14 +71,14 @@ class GameOfLife:
         """
         self.prev_generation = self.curr_generation
         self.curr_generation = self.get_next_generation()
-        self.generations += 1
+        self.n_generation += 1
 
     @property
-    def is_max_generations_exceeded(self) -> bool:
+    def is_max_generations_exceed(self) -> bool:
         """
         Не превысило ли текущее число поколений максимально допустимое.
         """
-        return self.generations == self.max_generations
+        return self.n_generation == self.max_generations
 
     @property
     def is_changing(self) -> bool:

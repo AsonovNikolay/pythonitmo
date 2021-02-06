@@ -49,7 +49,7 @@ class GUI(UI):
         self.is_pause = False
 
         # Создание списка клеток
-        self.grid = self.life.create_grid(True)
+        self.grid = self.life.create_grid(randomize=True)
 
         running = True
         while running:
@@ -80,7 +80,7 @@ class GUI(UI):
         pygame.quit()
 
 def main():
-    game = GameOfLife(size=(15, 15))
+    game = GameOfLife(size=(25, 25))
     app = GUI(game)
     app.run()
 
