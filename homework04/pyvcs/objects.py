@@ -31,7 +31,7 @@ def resolve_object(obj_name: str, gitdir: pathlib.Path) -> tp.List[str]:
         raise Exception(f"Not a valid object name {obj_name}")
     dir_name = obj_name[:2]
     obj_file = obj_name[2:]
-    obj_dir = str(gitdir) + "/objects/" + dir_name
+    obj_dir = str(gitdir) + "\\objects\\" + dir_name
     files_list = os.listdir(obj_dir)
     objs = []
     for obj in files_list:
@@ -47,7 +47,7 @@ def resolve_object(obj_name: str, gitdir: pathlib.Path) -> tp.List[str]:
 def find_object(obj_name: str, gitdir: pathlib.Path) -> str:
     dir_name = obj_name[:2]
     file_name = obj_name[2:]
-    path = str(gitdir) + "/" + dir_name + "/" + file_name
+    path = str(gitdir) + "\\" + dir_name + "\\" + file_name
     return path
 
 
@@ -124,7 +124,7 @@ def find_tree_files(
         pointer_type, _ = read_object(entry[1], gitdir)
         path = pathlib.Path(entry[2]).relative_to(gitdir.parent)
         if path.is_dir():
-            accumulator += str(path) + "/"
+            accumulator += str(path) + "\\"
         if pointer_type == "tree":
             tree_files += find_tree_files(entry[1], gitdir, accumulator)
         else:

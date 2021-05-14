@@ -52,3 +52,4 @@ def get_ref(gitdir: pathlib.Path) -> str:
         else:
             refname = head.read()
     return refname
+

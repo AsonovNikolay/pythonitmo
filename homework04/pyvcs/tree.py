@@ -14,12 +14,12 @@ def write_tree(gitdir: pathlib.Path, index: tp.List[GitIndexEntry], dirname: str
     for entry in index:
         _, name = os.path.split(entry.name)
         if dirname:
-            names = dirname.split("/")
+            names = dirname.split("\\")
         else:
-            names = entry.name.split("/")
+            names = entry.name.split("\\")
         if len(names) != 1:
             prefix = names[0]
-            name = f"/".join(names[1:])
+            name = f"\\".join(names[1:])
             mode = "40000"
             tree_entry = f"{mode} {prefix}\0".encode()
             tree_entry += bytes.fromhex(write_tree(gitdir, index, name))

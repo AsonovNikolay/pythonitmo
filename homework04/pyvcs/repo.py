@@ -12,8 +12,8 @@ def repo_find(workdir: tp.Union[str, pathlib.Path] = ".") -> pathlib.Path:
     gitdir = path / gitdir_name
     for parent in gitdir.parents:
         root, _ = os.path.split(parent)
-        if str(parent) == root + f"/{gitdir_name}":
-            gitdir = pathlib.Path(root  + f"/{gitdir_name}")
+        if str(parent) == root + f"\\{gitdir_name}":
+            gitdir = pathlib.Path(root  + f"\\{gitdir_name}")
     if gitdir.exists():
         return gitdir.absolute()
 
@@ -31,9 +31,9 @@ def repo_create(workdir: tp.Union[str, pathlib.Path]) -> pathlib.Path:
     gitdir = path / gitdir_name
     if not gitdir.is_dir():
         os.makedirs(gitdir)
-        os.makedirs(str(gitdir) + "/refs/heads")
-        os.makedirs(str(gitdir) + "/refs/tags")
-        os.makedirs(str(gitdir) + "/objects")
+        os.makedirs(str(gitdir) + "\\refs\\heads")
+        os.makedirs(str(gitdir) + "\\refs\\tags")
+        os.makedirs(str(gitdir) + "\\objects")
         with open(gitdir / "HEAD", "w") as head:
             head.write("ref: refs/heads/master\n")
         with open(gitdir / "config", "w") as config:
@@ -44,3 +44,4 @@ def repo_create(workdir: tp.Union[str, pathlib.Path]) -> pathlib.Path:
             description.write("Unnamed pyvcs repository.\n")
 
     return gitdir
+

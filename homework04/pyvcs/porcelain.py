@@ -27,14 +27,14 @@ def checkout(gitdir: pathlib.Path, obj_name: str) -> None:
     to_be_updated = [pathlib.Path(i[1]) for i in files]
     update_index(gitdir, to_be_updated, write=True)
     for name in index_names:
-        nodes = name.split("/")
+        nodes = name.split("\\")
         if pathlib.Path(nodes[0]).is_dir():
             shutil.rmtree(nodes[0])
         else:
             if pathlib.Path(nodes[0]).exists():
                 os.remove(nodes[0])
     for sha, name in files:
-        if name.find("/") != -1:
+        if name.find("\\") != -1:
             prefix, _ = os.path.split(name)
             if not pathlib.Path(prefix).exists():
                 os.makedirs(prefix)
